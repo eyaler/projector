@@ -1,12 +1,12 @@
-<h1>projector</h1>
+# projector
 
-<h3>A minimalistic PDF gallery with lightbox</h3>
+### A minimalistic PDF gallery with lightbox</h3>
 
 By Eyal Gruss
 
-<u>Demo</u>: https://ml4des.com
+Demo: https://ml4des.com
 
-<u>Instructions</u>:
+Instructions</u>:
 
 Add PDFs to the portfolio directory.
 
