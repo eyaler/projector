@@ -74,6 +74,8 @@
                 color: #999;
                 padding: 0.5em 5em;
                 line-height: 1.5em;
+                display: flex;
+                flex-flow: column wrap;
             }
             h1, h2, h3, h4, h5, h6 {
                 display: flex;
@@ -88,20 +90,20 @@
         <div id='container'>
             <header>
                 <h3>
-                    <div>
+                    <span>
                         <strong>HEADER A</strong> HEADER B
-                    </div>
-                    <div dir='rtl'>
+                    </span>
+                    <span dir='rtl'>
                         <strong>כותרת א</strong> כותרת ב
-                    </div>
+                    </span>
                 </h3>
                 <h5>
-                    <div>
+                    <span>
                         HEADER C
-                    </div>
-                    <div dir='rtl'>
+                    </span>
+                    <span dir='rtl'>
                         כותרת ג
-                    </div>
+                    </span>
                 </h5>
             </header>
             <div id='gallery'></div>
@@ -154,7 +156,7 @@
                                 link.appendChild(fig)
                                 document.getElementById('gallery').appendChild(link)
                         }
-                        new VenoBox({'titleStyle': 'transparent'})
+                        new VenoBox()
                     }
                     if (!success) help()
                 }
