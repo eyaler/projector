@@ -1,15 +1,15 @@
 # projector
 
-### A minimalistic PDF gallery with lightbox</h3>
+### A minimalistic lightweight semi-automatic PDF gallery with lightbox</h3>
 
 By Eyal Gruss
 
 Demo: https://ml4des.com
 
-Instructions</u>:
+Instructions:
 
-Add PDFs to the portfolio directory.
+Add PDFs to the portfolio directory, and the gallery will be created automagically.
 
-Images with corresponding filenames will be used as thumbnails.
+Any image files with corresponding filenames will be used as thumbnails.
 
-You can also point 'folder' to a different URL that allows indexing and CORS. (see portfolio/.htaccess)
+You can also point the 'folder' variable to a remote URL that allows indexing and CORS. (see portfolio/.htaccess)

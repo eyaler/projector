@@ -113,9 +113,9 @@
                 let splitAlt = false
                 function help() {
                     gallery.innerHTML = `
-                        Add PDFs to the portfolio directory.<br>
-                        Images with corresponding filenames will be used as thumbnails.<br>
-                        You can also point 'folder' to a different URL that allows indexing and CORS. (see portfolio/.htaccess)
+                        Add PDFs to the portfolio directory, and a gallery will be created automagically.<br>
+                        Any image files with corresponding filenames will be used as thumbnails.<br>
+                        You can also point the 'folder' variable to a remote URL that allows indexing and CORS. (see portfolio/.htaccess)
                     `
                 }
                 let xhr = new XMLHttpRequest()
