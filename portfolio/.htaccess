@@ -1,0 +1,4 @@
+Options +Indexes
+
+# uncomment the following line to allow CORS access if your portfolio directory is on a different server
+# Header set Access-Control-Allow-Origin "*"

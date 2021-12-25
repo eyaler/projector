@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang='en' dir='ltr'>
+    <head>
+        <meta charset='UTF-8'>
+        <title>Website Name</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <link rel='preconnect' href='https://fonts.googleapis.com'>
+        <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+        <link href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300' rel='stylesheet'>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/venobox@latest/dist/venobox.min.css' />
+        <script src='https://cdn.jsdelivr.net/npm/venobox@latest/dist/venobox.min.js'></script>
+        <style>
+            * {
+                margin: 0;
+            }
+            #container {
+                height: 100vh;
+                display: flex;
+	            flex-direction: column;
+                font-family: 'Open Sans', sans-serif;
+                overflow: auto;
+            }
+            #gallery {
+                display: flex;
+                flex-wrap: wrap;
+                flex: 1;
+                place-content: space-evenly;
+                gap: 32px;
+                margin: 32px;
+            }
+            .venobox {
+                text-decoration: none;
+                transition: transform .1s;
+            }
+            .venobox:hover {
+                transform: scale(1.1);
+            }
+            figure {
+                width: 256px;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+            img {
+                height: 256px;
+                width: 100%;
+                font-size: 32px;
+                overflow: hidden;
+                object-fit: cover;
+                object-position: top;
+                color: #ff0261;
+                white-space: pre-line;
+            }
+            img:-moz-loading {
+                visibility: hidden;
+            }
+            figcaption {
+                background-color: #222;
+                color: white;
+                font-size: 13px;
+                font-style: italic;
+                padding: 0.3em;
+                line-height: 1.5em;
+            }
+            footer {
+                font-size: 16px;
+                font-family: Courier New;
+                margin-bottom: 0.3em;
+                text-align: center;
+            }
+            header {
+                background-color: black;
+                color: #999;
+                padding: 0.5em 5em;
+                line-height: 1.5em;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                display: flex;
+                justify-content: space-between;
+            }
+            strong {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='container'>
+            <header>
+                <h3>
+                    <div>
+                        <strong>HEADER A</strong> HEADER B
+                    </div>
+                    <div dir='rtl'>
+                        <strong>כותרת א</strong> כותרת ב
+                    </div>
+                </h3>
+                <h5>
+                    <div>
+                        HEADER C
+                    </div>
+                    <div dir='rtl'>
+                        כותרת ג
+                    </div>
+                </h5>
+            </header>
+            <div id='gallery'></div>
+            <script type='text/javascript'>
+                'use strict'
+                let folder = 'portfolio'
+                let upperCase = true
+                let skipPrefix = false
+                let splitAlt = false
+                function help() {
+                    gallery.innerHTML = `
+                        Add PDFs to the portfolio directory.<br>
+                        Images with corresponding filenames will be used as thumbnails.<br>
+                        You can also point 'folder' to a shared storage location that allows indexing and CORS.
+                    `
+                }
+                let xhr = new XMLHttpRequest()
+                xhr.open('GET', folder.replace(/\/?$/, '/'))
+                xhr.responseType = 'document'
+                let success = false
+                xhr.onload = () => {
+                    if (xhr.status === 200) {
+                        let elements = xhr.response.getElementsByTagName('a')
+                        for (let x of elements)
+                            if (x.href.match(/\.pdf$/i)) {
+                                success = true
+                                let link = document.createElement('a')
+                                link.className = 'venobox'
+                                link.setAttribute('data-vbtype', 'iframe')
+                                link.href = x.href + '#view=FitH&zoom=FitH'
+                                let fig = document.createElement('figure')
+                                let img = document.createElement('img')
+                                let cap = document.createElement('figcaption')
+                                for (let y of elements)
+                                    if (y.href.match(x.href.slice(0, -4)) && y.href.match(/\.(svg|webp|gif|jpe?g|png|bmp)$/i)) {
+                                        img.src = y.href
+                                        break
+                                    }
+                                let title = decodeURIComponent(x.href).slice(0, -4).split('/').at(-1)
+                                if (upperCase) title = title.toUpperCase()
+                                if (skipPrefix) title = title.split(' ').slice(1).join(' ')
+                                link.title = title
+                                cap.textContent = title
+                                if (splitAlt) title = title.replace(' - ', '\n').replaceAll(', ', '\n')
+                                img.alt = title
+                                fig.appendChild(img)
+                                fig.appendChild(cap)
+                                link.appendChild(fig)
+                                document.getElementById('gallery').appendChild(link)
+                        }
+                        new VenoBox({'titleStyle': 'transparent'})
+                    }
+                    if (!success) help()
+                }
+                xhr.onerror = help
+                xhr.send()
+            </script>
+            <footer>
+                <a href='https://github.com/eyaler/projector'>projector</a> by <a href='https://eyalgruss.com'>Eyal Gruss</a>
+            </footer>
+        </div>
+    </body>
+</html>
