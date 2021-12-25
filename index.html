@@ -142,7 +142,7 @@
                                         img.src = y.href
                                         break
                                     }
-                                let title = decodeURIComponent(x.href).slice(0, -4).split('/').at(-1)
+                                let title = decodeURIComponent(x.href).slice(0, -4).split('/').slice(-1)[0]
                                 if (upperCase) title = title.toUpperCase()
                                 if (skipPrefix) title = title.split(' ').slice(1).join(' ')
                                 link.title = title
