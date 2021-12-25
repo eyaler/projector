@@ -112,10 +112,12 @@
                 let skipPrefix = false
                 let splitAlt = false
                 function help() {
+                    gallery.style.lineHeight = '3em'
                     gallery.innerHTML = `
-                        Add PDFs to the portfolio directory, and a gallery will be created automagically.<br>
+                        Add PDFs to the portfolio directory, and a gallery will be created automagically!<br>
                         Any image files with corresponding filenames will be used as thumbnails.<br>
-                        You can also point the 'folder' variable to a remote URL that allows indexing and CORS. (see portfolio/.htaccess)
+                        You can also point the 'folder' variable to a remote URL.<br>
+                        Make sure to enable indexing and for remote also CORS - see portfolio/.htaccess
                     `
                 }
                 let xhr = new XMLHttpRequest()
