@@ -29,11 +29,11 @@
                 gap: 32px;
                 margin: 32px;
             }
-            .venobox {
+            .venobox-pdf {
                 text-decoration: none;
                 transition: transform .1s;
             }
-            .venobox:hover {
+            .venobox-pdf:hover {
                 transform: scale(1.1);
             }
             figure {
@@ -133,7 +133,7 @@
                             if (x.href.match(/\.pdf$/i)) {
                                 success = true
                                 let link = document.createElement('a')
-                                link.className = 'venobox'
+                                link.className = 'venobox-pdf'
                                 link.setAttribute('data-vbtype', 'iframe')
                                 link.href = x.href + '#view=FitH&zoom=FitH'
                                 let fig = document.createElement('figure')
@@ -156,7 +156,7 @@
                                 link.appendChild(fig)
                                 document.getElementById('gallery').appendChild(link)
                         }
-                        new VenoBox()
+                        if (window.matchMedia('(hover: hover)').matches) new VenoBox({selector: '.venobox-pdf'})
                     }
                     if (!success) help()
                 }
