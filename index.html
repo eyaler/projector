@@ -113,6 +113,7 @@
                 'use strict'
                 let folder = 'portfolio'
                 let upperCase = true
+                let replaceUnderscores = true
                 let skipPrefix = false
                 let splitAlt = false
                 function help() {
@@ -148,6 +149,7 @@
                                     }
                                 let title = decodeURIComponent(x.href).slice(0, -4).split('/').slice(-1)[0]
                                 if (upperCase) title = title.toUpperCase()
+                                if (replaceUnderscores) title = title.replaceAll('_', ' ')
                                 if (skipPrefix) title = title.split(' ').slice(1).join(' ')
                                 link.title = title
                                 cap.textContent = title
