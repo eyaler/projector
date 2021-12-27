@@ -33,8 +33,10 @@
                 text-decoration: none;
                 transition: transform .1s;
             }
-            .venobox-pdf:hover {
-                transform: scale(1.1);
+            @media (hover: hover) {
+                .venobox-pdf:hover {
+                    transform: scale(1.1);
+                }
             }
             figure {
                 width: 256px;
@@ -156,7 +158,7 @@
                                 link.appendChild(fig)
                                 document.getElementById('gallery').appendChild(link)
                         }
-                        if (window.matchMedia('(hover:hover)').matches) new VenoBox({selector: '.venobox-pdf'})
+                        if (window.matchMedia('(hover: hover)').matches) new VenoBox({selector: '.venobox-pdf'})
                     }
                     if (!success) help()
                 }
