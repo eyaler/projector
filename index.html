@@ -148,6 +148,7 @@
                         else remote = document.title
                         const header = document.querySelector('header')
                         header.innerHTML = '<h3><strong>' + remote + '</strong></h3>'
+                    }
                 }
                 const xhr = new XMLHttpRequest()
                 xhr.open('GET', folder.replace(/\/?$/, '/'))
