@@ -112,44 +112,67 @@
             <script type='text/javascript'>
                 'use strict'
                 let folder = 'portfolio'
-                let upperCase = true
-                let replaceUnderscores = true
-                let skipPrefix = false
-                let splitAlt = false
+                const zombieMode = true
+                const upperCase = true
+                const skipPrefix = false
+                const splitAlt = false
                 function help() {
                     gallery.style.lineHeight = '3em'
-                    gallery.innerHTML = `
+                    if (zombieMode) gallery.innerHTML = `
+                        Add PDFs to your remote portfolio directory, and a gallery will be created automagically!<br>
+                        Any image files with corresponding filenames will be used as thumbnails.<br>
+                        Use <a href=https://bit.ly>bit.ly</a> to create a shortcut to your remote directory e.g. <a href=https://bit.ly/my_awesome_portfolio>bit.ly/my_awesome_portfolio</a><br>
+                        Make sure to enable indexing and CORS - see <a href=https://github.com/eyaler/projector/blob/master/portfolio/.htaccess>portfolio/.htaccess</a><br>
+                        Your done! Your portfolio is now live at <a href=https://jectr.github.io/#my_awesome_portfolio>jectr.github.io/#my_awesome_portfolio</a><br>
+                        You can also self host by <a href=https://github.com/eyaler/projector>projector</a>
+                    `
+                    else gallery.innerHTML = `
                         Add PDFs to the portfolio directory, and a gallery will be created automagically!<br>
                         Any image files with corresponding filenames will be used as thumbnails.<br>
                         You can also point the 'folder' variable to a remote URL.<br>
-                        Make sure to enable indexing and for remote also CORS - see portfolio/.htaccess
+                        Make sure to enable indexing and for remote also CORS - see <a href=https://github.com/eyaler/projector/blob/master/portfolio/.htaccess>portfolio/.htaccess</a>
                     `
                 }
-                let xhr = new XMLHttpRequest()
+                function toTitleCase(str) {
+                    return str.replaceAll(/\w\S*/, function(txt) {
+                        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                    })
+                }
+                if (zombieMode)
+                    remote = window.location.hash.substr(1)
+                    if (remote) {
+                        folder = 'https://bit.ly/' + remote
+                        remote = decodeURIComponent(remote).replaceAll('_', ' ')
+                        document.title = toTitleCase(remote)
+                        if (upperCase) remote = remote.toUpperCase()
+                        else remote = document.title
+                        const header = document.querySelector('header')
+                        header.innerHTML = '<h3><strong>' + remote + '</strong></h3>'
+                }
+                const xhr = new XMLHttpRequest()
                 xhr.open('GET', folder.replace(/\/?$/, '/'))
                 xhr.responseType = 'document'
                 let success = false
                 xhr.onload = () => {
                     if (xhr.status === 200) {
-                        let elements = xhr.response.getElementsByTagName('a')
+                        const elements = xhr.response.getElementsByTagName('a')
                         for (let x of elements)
                             if (x.href.match(/\.pdf$/i)) {
                                 success = true
-                                let link = document.createElement('a')
+                                const link = document.createElement('a')
                                 link.className = 'venobox-pdf'
                                 link.setAttribute('data-vbtype', 'iframe')
                                 link.href = x.href + '#view=FitH&zoom=FitH&messages=0&navpanes=0&pagemode=none&scrollbar=0&statusbar=0&toolbar=0'
-                                let fig = document.createElement('figure')
-                                let img = document.createElement('img')
-                                let cap = document.createElement('figcaption')
+                                const fig = document.createElement('figure')
+                                const img = document.createElement('img')
+                                const cap = document.createElement('figcaption')
                                 for (let y of elements)
                                     if (y.href.match(x.href.slice(0, -4)) && y.href.match(/\.(svg|gif|jpe?g|png)$/i)) {
                                         img.src = y.href
                                         break
                                     }
-                                let title = decodeURIComponent(x.href).slice(0, -4).split('/').slice(-1)[0]
+                                let title = decodeURIComponent(x.href).slice(0, -4).split('/').slice(-1)[0].replaceAll('_', ' ')
                                 if (upperCase) title = title.toUpperCase()
-                                if (replaceUnderscores) title = title.replaceAll('_', ' ')
                                 if (skipPrefix) title = title.split(' ').slice(1).join(' ')
                                 link.title = title
                                 cap.textContent = title
