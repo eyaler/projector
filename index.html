@@ -112,7 +112,7 @@
             <script type='text/javascript'>
                 'use strict'
                 let folder = 'portfolio'
-                const zombieMode = true
+                const zombieMode = false
                 const upperCase = true
                 const skipPrefix = false
                 const splitAlt = false
@@ -139,7 +139,7 @@
                     })
                 }
                 if (zombieMode)
-                    remote = window.location.hash.substr(1)
+                    let remote = window.location.hash.substr(1)
                     if (remote) {
                         folder = 'https://bit.ly/' + remote
                         remote = decodeURIComponent(remote).replaceAll('_', ' ')
