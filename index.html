@@ -150,8 +150,9 @@
                         header.innerHTML = '<h3><strong>' + remote + '</strong></h3>'
                     }
                 }
+                else folder = folder.replace(/\/?$/, '/')
                 const xhr = new XMLHttpRequest()
-                xhr.open('GET', folder.replace(/\/?$/, '/'))
+                xhr.open('GET', folder)
                 xhr.responseType = 'document'
                 let success = false
                 xhr.onload = () => {
